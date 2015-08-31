@@ -12,6 +12,11 @@ def list_clients shelter
   shelter.clients.each_with_index { |client, index| puts "Client N. #{index}: Its name is #{client.name} and has #{client.num_of_pets} pets." }
 end
 
+def search_client shelter, clientName
+  shelter.clients.select { |client| if client.name == clientName then puts client.age end }
+end
+
+
 def menu
   puts `clear`
   puts '*' * 52
@@ -75,16 +80,19 @@ while response.downcase != 'q'
 
   when '5' #Give up a Pet
     puts 'Is this person a client of our shelter? (Y/N)'
-    if answer == 'y'
+    answer1 = gets.chomp
+    if answer1 == 'y'
       puts 'What is his/her name?'
-      name = gets.chomp
+      clientName = gets.chomp
       # Search in our Clients array
-        # --> Response 4 - List Clients
+        search_client shelter, clientName
+        gets
       # Find him and show number of pets
 
-    elsif answer == 'n'
+    elsif answer1 == 'n'
       puts 'In order to give up a pet for adoption this person has to join to our shelter clients database, does he/she wants to continue? (Y/N)'
-      if answer == 'y'
+      answer2 = gets.chomp
+      if answer2 == 'y'
         # --> Response 3 - Add a Client
 
         # Ask for details about his pet for adoption
@@ -95,6 +103,7 @@ while response.downcase != 'q'
 
       else
         response = menu
+      end
     else
       response = menu
     end
