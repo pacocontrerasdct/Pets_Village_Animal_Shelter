@@ -27,7 +27,7 @@ def menu
   gets.chomp
 end
 
-response = menu # get the value user inputs in
+response = menu # get the value from user inputs
 
 while response.downcase != 'q'
   case response
@@ -74,6 +74,30 @@ while response.downcase != 'q'
     gets
 
   when '5' #Give up a Pet
+    puts 'Is this person a client of our shelter? (Y/N)'
+    if answer == 'y'
+      puts 'What is his/her name?'
+      name = gets.chomp
+      # Search in our Clients array
+        # --> Response 4 - List Clients
+      # Find him and show number of pets
+
+    elsif answer == 'n'
+      puts 'In order to give up a pet for adoption this person has to join to our shelter clients database, does he/she wants to continue? (Y/N)'
+      if answer == 'y'
+        # --> Response 3 - Add a Client
+
+        # Ask for details about his pet for adoption
+          # --> Response 1 - Add a Pet
+
+        # Update client details
+          # Change num of pets
+
+      else
+        response = menu
+    else
+      response = menu
+    end
 
   end
 
