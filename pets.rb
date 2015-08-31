@@ -1,6 +1,6 @@
 class Pets
   
-  attr_accessor :name, :breed, :age, :gender, :favorite_toys
+  attr_reader :name, :breed, :age, :gender, :favorite_toys
 
   def initialize(name, breed, age, gender, favorite_toys)
     @name = name
@@ -9,8 +9,5 @@ class Pets
     @gender = gender
     @favorite_toys = favorite_toys
   end
-
-
-
 
 end
