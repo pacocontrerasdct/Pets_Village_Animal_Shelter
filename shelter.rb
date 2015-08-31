@@ -12,4 +12,8 @@ class AnimalShelter
     pets << pet
   end
 
+  def add_client_to_shelter(client)
+    clients << client
+  end
+
 end

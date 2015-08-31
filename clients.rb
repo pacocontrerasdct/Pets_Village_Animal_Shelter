@@ -1,4 +1,5 @@
 class Clients
+
   attr_accessor :name, :age, :gender, :num_of_pets
 
   def initialize(name, age, gender, num_of_pets)

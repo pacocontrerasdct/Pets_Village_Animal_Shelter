@@ -8,6 +8,10 @@ def list_pets shelter
   shelter.pets.each_with_index { |pet, index| puts "Pet N. #{index}: Its name is #{pet.name} and is a #{pet.breed}" }
 end
 
+def list_clients shelter
+  shelter.clients.each_with_index { |client, index| puts "Client N. #{index}: Its name is #{client.name} and has #{client.num_of_pets} pets." }
+end
+
 def menu
   puts `clear`
   puts '*' * 52
@@ -54,11 +58,20 @@ while response.downcase != 'q'
     name = gets.chomp
     puts 'How old is he/she?'
     age = gets.chomp
-    puts 'Gent or Lady?'
+    puts 'A gentleman or a lady?'
     gender = gets.chomp
-    puts 'How many pets has the client?'
+    puts "How many pets has the #{gender}?"
     num_of_pets = gets.chomp
+
+    # Creating a new Client
+    client = Clients.new(name, age, gender, num_of_pets)
+    puts shelter.add_client_to_shelter(client)
+    gets
+
   when '4' #List Clients
+    puts 'This are all the clients:'
+    list_clients(shelter)
+    gets
 
   when '5' #Give up a Pet
 
