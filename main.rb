@@ -13,15 +13,14 @@ def list_clients shelter
 end
 
 def search_client shelter, clientName
-  shelter.clients.select { |client| if client.name == clientName then puts "--> Mr./ Ms. #{client.name} has got #{client.num_of_pets} pets.\n--> Which one he/she want to give up?\n" end }
+  shelter.clients.select { |client| if client.name == clientName then puts "--> Mr./ Ms. #{client.name} has got #{client.num_of_pets} pets.\n--> Which one he/she wants to give up?\n" end }
     add_a_Pet(shelter)
-    gets
 end
 
 def add_a_Pet shelter
   puts '--> Name of the Pet?'
   name = gets.chomp
-  puts '--> Do the pet has any breed? Breed/ None'
+  puts '--> Do the pet has any breed?'
   breed = gets.chomp
   puts '--> What is its age?'
   age = gets.chomp
@@ -33,8 +32,27 @@ def add_a_Pet shelter
   # Creating a new pet
   pet = Pets.new(name, breed, age, gender, favorite_toys)
   puts shelter.add_pet_to_shelter(pet)
+  puts '--> Press any key to continue'
   gets
 end
+
+def add_a_client shelter
+  puts '--> Name of the client?'
+  name = gets.chomp
+  puts '--> How old is he/she?'
+  age = gets.chomp
+  puts '--> A gentleman or a lady?'
+  gender = gets.chomp
+  puts "--> How many pets has the #{gender}?"
+  num_of_pets = gets.chomp
+
+  # Creating a new Client
+  client = Clients.new(name, age, gender, num_of_pets)
+  puts shelter.add_client_to_shelter(client)
+  puts '--> Press any key to continue'
+  gets
+end
+
 
 def menu
   puts `clear`
@@ -47,7 +65,8 @@ def menu
   puts '4: List Clients'
   puts '5: Give up a Pet'
   puts 'q: Quit'
-  print '-->'
+  puts "\nSelect an option"
+  print '--> '
   gets.chomp
 end
 
@@ -57,31 +76,24 @@ while response.downcase != 'q'
   case response
   when '1' #Add a Pet
     add_a_Pet(shelter)
-    gets
+    #puts '--> Press any key to continue'
+    #gets
 
   when '2' #List Pets available for adoption
     puts 'Here are all the pets:'
     list_pets(shelter)
+    puts '--> Press any key to continue'
     gets
 
   when '3' #Add a Client
-    puts '--> Name of the client?'
-    name = gets.chomp
-    puts '--> How old is he/she?'
-    age = gets.chomp
-    puts '--> A gentleman or a lady?'
-    gender = gets.chomp
-    puts "--> How many pets has the #{gender}?"
-    num_of_pets = gets.chomp
-
-    # Creating a new Client
-    client = Clients.new(name, age, gender, num_of_pets)
-    puts shelter.add_client_to_shelter(client)
-    gets
+    add_a_client(shelter)
+    #puts '--> Press any key to continue'
+    #gets
 
   when '4' #List Clients
     puts '--> This are all the clients:'
     list_clients(shelter)
+    puts '--> Press any key to continue'
     gets
 
   when '5' #Give up a Pet
@@ -90,20 +102,19 @@ while response.downcase != 'q'
     if answer1 == 'y'
       puts '--> What is his/her name?'
       clientName = gets.chomp
-      # Search in our Clients array
+      # Search in our Clients array, find him and show number of pets
         search_client shelter, clientName
-        gets
-      # Find him and show number of pets
 
     elsif answer1 == 'n'
       puts '--> In order to give up a pet for adoption this person has to join to our shelter clients database, does he/she wants to continue? (Y/N)'
       answer2 = gets.chomp
       if answer2 == 'y'
-        # --> Response 3 - Add a Client
-
+        # Add a Client
+        add_a_client(shelter)
         # Ask for details about his pet for adoption
-          # --> Response 1 - Add a Pet
-
+        # Add a Pet
+        add_a_Pet(shelter)
+        
         # Update client details
           # Change num of pets
 
