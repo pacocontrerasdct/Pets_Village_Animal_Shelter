@@ -5,17 +5,36 @@ require_relative 'pets'
 shelter = AnimalShelter.new('Pets Village')
 
 def list_pets shelter
-  shelter.pets.each_with_index { |pet, index| puts "Pet N. #{index}: Its name is #{pet.name} and is a #{pet.breed}" }
+  shelter.pets.each_with_index { |pet, index| puts "--> Pet N. #{index}: Its name is #{pet.name} and is a #{pet.breed}" }
 end
 
 def list_clients shelter
-  shelter.clients.each_with_index { |client, index| puts "Client N. #{index}: Its name is #{client.name} and has #{client.num_of_pets} pets." }
+  shelter.clients.each_with_index { |client, index| puts "--> Client N. #{index}: Its name is #{client.name} and has #{client.num_of_pets} pets." }
 end
 
 def search_client shelter, clientName
-  shelter.clients.select { |client| if client.name == clientName then puts client.age end }
+  shelter.clients.select { |client| if client.name == clientName then puts "--> Mr./ Ms. #{client.name} has got #{client.num_of_pets} pets.\n--> Which one he/she want to give up?\n" end }
+    add_a_Pet(shelter)
+    gets
 end
 
+def add_a_Pet shelter
+  puts '--> Name of the Pet?'
+  name = gets.chomp
+  puts '--> Do the pet has any breed? Breed/ None'
+  breed = gets.chomp
+  puts '--> What is its age?'
+  age = gets.chomp
+  puts '--> Is male or female?'
+  gender = gets.chomp
+  puts '--> Do it has any favorite toys? Which one/s?'
+  favorite_toys = gets.chomp
+
+  # Creating a new pet
+  pet = Pets.new(name, breed, age, gender, favorite_toys)
+  puts shelter.add_pet_to_shelter(pet)
+  gets
+end
 
 def menu
   puts `clear`
@@ -37,20 +56,7 @@ response = menu # get the value from user inputs
 while response.downcase != 'q'
   case response
   when '1' #Add a Pet
-    puts 'Name of the Pet?'
-    name = gets.chomp
-    puts 'Do the pet has any breed? Breed/ None'
-    breed = gets.chomp
-    puts 'What is its age?'
-    age = gets.chomp
-    puts 'Is male or female?'
-    gender = gets.chomp
-    puts 'Do it has any favorite toys? Which one/s?'
-    favorite_toys = gets.chomp
-
-    # Creating a new pet
-    pet = Pets.new(name, breed, age, gender, favorite_toys)
-    puts shelter.add_pet_to_shelter(pet)
+    add_a_Pet(shelter)
     gets
 
   when '2' #List Pets available for adoption
@@ -59,13 +65,13 @@ while response.downcase != 'q'
     gets
 
   when '3' #Add a Client
-    puts 'Name of the client?'
+    puts '--> Name of the client?'
     name = gets.chomp
-    puts 'How old is he/she?'
+    puts '--> How old is he/she?'
     age = gets.chomp
-    puts 'A gentleman or a lady?'
+    puts '--> A gentleman or a lady?'
     gender = gets.chomp
-    puts "How many pets has the #{gender}?"
+    puts "--> How many pets has the #{gender}?"
     num_of_pets = gets.chomp
 
     # Creating a new Client
@@ -74,15 +80,15 @@ while response.downcase != 'q'
     gets
 
   when '4' #List Clients
-    puts 'This are all the clients:'
+    puts '--> This are all the clients:'
     list_clients(shelter)
     gets
 
   when '5' #Give up a Pet
-    puts 'Is this person a client of our shelter? (Y/N)'
+    puts '--> Is this person a client of our shelter? (Y/N)'
     answer1 = gets.chomp
     if answer1 == 'y'
-      puts 'What is his/her name?'
+      puts '--> What is his/her name?'
       clientName = gets.chomp
       # Search in our Clients array
         search_client shelter, clientName
@@ -90,7 +96,7 @@ while response.downcase != 'q'
       # Find him and show number of pets
 
     elsif answer1 == 'n'
-      puts 'In order to give up a pet for adoption this person has to join to our shelter clients database, does he/she wants to continue? (Y/N)'
+      puts '--> In order to give up a pet for adoption this person has to join to our shelter clients database, does he/she wants to continue? (Y/N)'
       answer2 = gets.chomp
       if answer2 == 'y'
         # --> Response 3 - Add a Client
